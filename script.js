@@ -26,6 +26,9 @@ function login() {
 
 
 async function register() {
+  // Included to make sure that the default submission doesn't happen.
+  event.preventDefault();
+
   // Fetch values from the form
   const firstName = document.getElementById('firstName').value;
   const lastName = document.getElementById('lastName').value;
@@ -34,16 +37,31 @@ async function register() {
   const confirmPassword = document.getElementById('confirmPassword').value;
 
   // Check if passwords match
-  if (password !== confirmPassword) 
-  {
+  if (password !== confirmPassword) {
     alert('Passwords do not match!');
     return;
   }
-  
+
+  // Password validation
+  var uppercaseRegex = /[A-Z]/;
+  var lowercaseRegex = /[a-z]/;
+  var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+  var numericRegex = /[0-9]/;
+
+  if (password.length < 8) {
+    alert("Password must be at least 8 characters long.");
+    return;
+  }
+
+  if (!uppercaseRegex.test(password) || !lowercaseRegex.test(password) || !specialCharRegex.test(password) || !numericRegex.test(password)) {
+    alert("Password must contain at least one uppercase letter, one lowercase letter, one special character, and one numeric digit.");
+    return;
+  }
+
   // Add registration logic here (e.g., send data to server)
   // For now, just displaying the values (in a real scenario, send this data to the server)
   alert(`Registration Details:\n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPassword: ${password}`);
-
+}
 
 /*
 CALEB FROST
