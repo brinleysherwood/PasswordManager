@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Home Page</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <form id="loginForm">
+      <h2>Login</h2>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="button" onclick="login()">Login</button>
+      <p>Don't have an account? <a href="createAccount.html">Create Account</a></p>
+    </form>
+  </div>
+
+  <script>
+    // Check if there's a success message in the query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const successMessage = urlParams.get('success');
+
+    // If there's a success message, show an alert
+    if (successMessage === 'true') {
+        alert('Account created successfully!');
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
