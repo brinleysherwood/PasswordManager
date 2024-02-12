@@ -49,7 +49,9 @@ app.post('/newuser', (req, res) => {
       res.status(500).json({ error: 'Database error', details: error.message });
     } else {
       console.log('Data inserted successfully');
-      res.status(200).json({ success: true });
+      // res.status(200).json({ success: true });
+      res.redirect('index.html?success=true')
+      
 
     }
   });

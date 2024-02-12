@@ -24,6 +24,16 @@
       <p>Don't have an account? <a href="createAccount.html">Create Account</a></p>
     </form>
   </div>
+
+  <script>
+    // Check if there's a success message in the query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const successMessage = urlParams.get('success');
+    // If there's a success message, show an alert
+    if (successMessage === 'true') {
+        alert('Account created successfully!');
+    }
+  </script>
  
 </body>
 
