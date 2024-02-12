@@ -1,26 +1,19 @@
-/*
-CALEB FROST
-I made the code below to send the data to the database from the form.
-*/
-
 const express = require('express');
 const bodyParser = require('body-parser');
-// const http = require('http');
-// const fs = require('fs');
-// const url = require('url');
+const http = require('http');
+const fs = require('fs'); 
+const url = require('url');
 const path = require('path');
 const mysql = require('mysql');
-// const qs = require('querystring');
+const qs = require('querystring');
 
-// Creates express instance for node.js
+// Our database table name.
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-// Parsing body contents to json to send to database
 app.use(bodyParser.json());
-
-//Referencing the home directory where all the files are (root directory. For me I named my folder v1 for version 1)
 app.use(express.static(path.join(__dirname)));
+
 
 // Database connection constant made for future query creation
 const con = mysql.createConnection({
@@ -30,8 +23,6 @@ const con = mysql.createConnection({
   database: 'spring2024Cteam4',
 });
 
-
-// Connection to database. Returns error if unsucessful
 con.connect((err) => {
   if (err) {
     console.error('Error connecting to database:', err);
@@ -41,24 +32,16 @@ con.connect((err) => {
 });
 
 
-// Uses post method to reference the action element in the form within createAccount.html
-app.post('/newuser', (req, res) => {
-  const { firstName, lastName, email, newPassword, confirmPassword } = req.body;
 
-  // Will not send query unless all elements are filled in.
+app.post('/newuser', (req, res) => {
+  const { firstName, lastName, email, newPassword } = req.body;
+
   if (!firstName || !lastName || !email || !newPassword) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  if (newPassword !== confirmPassword) {
-    return res.status(400).json({ error: 'Passwords do not match' });
-  }
-
-  // Logging request body in console for TS.
   console.log('Request body: ', req.body);
 
-  // This is the query that we are sending via the server to the DB
-  // MAYBE CREATE HERE AN IF STATEMENT TO MAKE SURE THAT THE PASSWORD MEETS THE REQUIREMENENTS
   const sql = 'INSERT INTO user (fname, lname, email, master_password) VALUES (?, ?, ?, ?)';
   con.query(sql, [firstName, lastName, email, newPassword], (error, results) => {
     if (error) {
@@ -66,14 +49,43 @@ app.post('/newuser', (req, res) => {
       res.status(500).json({ error: 'Database error', details: error.message });
     } else {
       console.log('Data inserted successfully');
-      // res.status(200).json({ success: true });
-      // Add redirect here so it goes back to the index.html page.
-      res.redirect('/index.html?success=true'); // May or may not work
+      res.status(200).json({ success: true });
+
     }
   });
 });
 
-// This is the port I decided to use for the server and connection to DB.
+/* BRINLEY SHERWOOD 
+beginning code to handle log in requests
+*/
+
+// POST route to handle login request
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  /// Query the database to check if the user exists and the credentials are correct
+  const sql = 'SELECT * FROM user WHERE email = ? AND master_password = ?';
+  con.query(sql, [username, password], (error, results) => {
+    if (error) {
+      console.error('Error querying the database: ', error);
+      res.sendStatus(500); // Internal server error
+      return;
+    }
+
+    if (results.length > 0) {
+      res.redirect('/dashboard.html'); // Redirect to dashboard.html upon successful login
+    } else {
+      res.sendStatus(401); // Send unauthorized status code
+    }
+  });
+});
+
+// app.get('/home', (req, res) => {
+//   res.send('Welcome to the home page!');
+// });
+
+// END CODE FOR LOG IN
+
 const port = 8200;
 app.listen(port, () => {
   console.log(`The web server is alive! \nListening on http://localhost:${port}`);

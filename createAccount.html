@@ -11,7 +11,7 @@
 <body>
 
   <div class="container">
-    <form id="registerForm">
+    <form id="registerForm" action="/newuser" method="POST">
       <h2>Create Account</h2>
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="firstName" required>
@@ -29,11 +29,14 @@
       <input type="password" id="confirmPassword" name="confirmPassword" required>
 
       <button type="button" onclick="register()">Create Account</button>
+      <hr>
+      <button type="submit">Send to database Test</button>
       <p>Already have an account? <a href="loginpage.html">Login</a></p>
     </form>
   </div>
 
   <script src="script.js"></script>
+  
 </body>
 
 </html>

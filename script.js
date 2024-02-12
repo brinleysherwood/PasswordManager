@@ -1,28 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const http = require('http');
-const fs = require('fs');
-const url = require('url');
-const path = require('path');
-const mysql = require('mysql');
-const qs = require('querystring');
+// Use body parser to parse information to JSON
+app.use(bodyParser.json());
 
-// Our database table name.
-const db = 'user';
-
-// Database connection constant made for future query creation
-const con = mysql.createConnection({
-    host: '107.180.1.16',
-    user: 'spring2024Cteam4',
-    password: 'spring2024Cteam4',
-    database: 'spring2024Cteam4',
+// Database connection
+con.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to database');
 });
-
-function login() {
-  // Add login logic here (e.g., validate credentials)
-  alert('Login functionality coming soon!');
-} 
 
 
 async function register() {
@@ -42,22 +28,6 @@ async function register() {
     return;
   }
 
-  // Password validation
-  var uppercaseRegex = /[A-Z]/;
-  var lowercaseRegex = /[a-z]/;
-  var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
-  var numericRegex = /[0-9]/;
-
-  if (password.length < 8) {
-    alert("Password must be at least 8 characters long.");
-    return;
-  }
-
-  if (!uppercaseRegex.test(password) || !lowercaseRegex.test(password) || !specialCharRegex.test(password) || !numericRegex.test(password)) {
-    alert("Password must contain at least one uppercase letter, one lowercase letter, one special character, and one numeric digit.");
-    return;
-  }
-
   // Add registration logic here (e.g., send data to server)
   // For now, just displaying the values (in a real scenario, send this data to the server)
   alert(`Registration Details:\n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPassword: ${password}`);
@@ -69,6 +39,58 @@ I am going to make below a connection to the database and
 a connection to the server. I will create a query to add the content
 the user enters to the database.
 */
-  app.post('/createAccount', (req, res) => {
-  
+
+// Move the registration route outside the register function
+app.post('/newuser', (req, res) => {
+  const { firstName, lastName, email, newPassword } = req.body;
+
+  if (!firstName || !lastName || !email || !newPassword) {
+    return res.status(400).json({ error: 'Missing required fields' });
   }
+
+  const sql = 'INSERT INTO user (fname, lname, email, master_password) VALUES (?, ?, ?, ?)';
+  con.query(sql, [firstName, lastName, email, newPassword], (error, results) => {
+    if (error) {
+      console.error('Error inserting data into the database: ', error);
+      res.status(500).json({ error: 'Database error', details: error.message });
+    } else {
+      console.log('Data inserted successfully');
+      res.status(200).json({ success: true });
+    }
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+/* BRINLEY SHERWOOD
+beginning logic for login validation below! */
+
+// login function 
+function login() {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ username, password })
+  })
+
+  .then(response => {
+    if (response.ok) {
+      // Redirect to home page if login is successful
+      window.location.href = '/dashboard.html'; 
+    } else {
+        alert('Login failed. Please try again.');
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+}
