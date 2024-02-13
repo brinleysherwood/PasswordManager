@@ -94,3 +94,42 @@ function login() {
     console.error('Error:', error);
 });
 }
+
+// Adding Accounts Functions 
+var site;
+var user;
+var password;
+var results;
+
+function initialize() {
+  results = document.getElementById('accountResultsId');
+
+}
+
+function clearInputs() { 
+	document.getElementById("websiteInput").value = "";
+  document.getElementById("usernameInput").value = "";
+  document.getElementById("passwordInput").value = "";
+}
+
+function runAccounts() {
+  site = document.getElementById("websiteInput").value;
+  user = document.getElementById("usernameInput").value;
+  password = document.getElementById("passwordInput").value;
+
+  console.log(site);
+  console.log(user);
+  console.log(password);
+
+  var tableRowNumber = 1;
+  var row = results.insertRow(tableRowNumber);
+	var cell0 = row.insertCell(0);
+	var cell1 = row.insertCell(1);
+	var cell2 = row.insertCell(2);
+
+	cell0.innerHTML = site;
+	cell1.innerHTML = user;
+	cell2.innerHTML = password;
+
+	tableRowNumber++;
+}
