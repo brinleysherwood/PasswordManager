@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styleIndex.css">
+  <link rel="stylesheet" href="styleDashboard.css">
   <title>Home Page</title>
 </head>
 
-<body>
+<body onload="initialize()">
   <header>
-    <h2>PasskeyForge</h2>
+    <h2>Passkey Forge</h2>
   </header>
 
   <div class="navBar">
@@ -31,7 +31,7 @@
 
   </div>
 
-  <section>
+  <div id="sideBar">
     <nav>
       <ul>
         <li><a href="#">Pass</a></li>
@@ -39,16 +39,46 @@
         <li><a href="#">Forge</a></li>
       </ul>
     </nav>
+  </div>
 
-    <article>
-      <h1>PasskeyForge</h1>
-      <p>This will the main dashboard</p>
-      <p>*** Generate Passwords ***</p>
-      <p>*** View Accounts ***</p>
-    </article>
-  </section>
+  <div id="accountsDash">
+      <h1>Accounts</h1>
+      <hr>
+      <form id="inputAccounts">
+        <table id="inputTable">
+          <tr>
+            <th>Website</th>
+            <th>Username</th>
+            <th>Password</th>
+          </tr>
+          <tr>
+            <td>
+              <input id="websiteInput" type="text" placeholder="Website">
+            </td>
+            <td>
+              <input id="usernameInput" type="text" placeholder="Username">
+            </td>
+            <td>
+              <input id="passwordInput" type="text" placeholder="Password">
+            </td>
+          </tr>
+        </table>
+        <div id="inputButtons">
+          <input type="button" value="Add Account" id="addAccountButton" onclick="runAccounts()">
+          <input type="button" value="Clear"       id="clearButton"      onclick="clearInputs()">
+        </div>
+        <hr>
+      </form>
 
-  <script src="script.js"></script>
+      <div id="accountResults">
+        <table id="accountResultsId" class="resultsTable">
+          <tr><th>Website</th><th>Username</th><th>Password</th></tr>
+        </table>
+      </div>
+
+  </div>
+
+  <script type="text/javascript" src="script.js"></script>
 </body>
 
 </html>
