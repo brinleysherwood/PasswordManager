@@ -1,22 +1,13 @@
-/* Color Palette 
-    #596869
-    #6C8976
-    #97B791
-    #ABD1B5
-    #E6EFE6
-*/
-
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #E6EFE6;
 }
 
 header {
-    background-color: #6C8976;
+    background-color: #A5A5A5;
     text-align: center;
     font-size: 35px;
     color: white;
@@ -27,7 +18,7 @@ header {
 /*Top navigation bar*/
 .navBar {
     overflow: hidden;
-    background-color: #596869;
+    background-color: #333;
 }
 
 .navBar a {
@@ -40,10 +31,6 @@ header {
     font-size: 15px;
 }
 
-.navBar a:hover, .dropdown:hover .dropbtn {
-    background-color: #E6EFE6;
-    color: #333;
-}
 /* Profile Tab Dropdown */
 .dropdown {
     float: left;
@@ -53,10 +40,15 @@ header {
     font-size: 15px;  
     border: none;
     outline: none;
-    color: #E6EFE6;
+    color: #ddd;
     padding: 12px;
     background-color: inherit;
     font-family: inherit;
+}
+
+.navBar a:hover, .dropdown:hover .dropbtn {
+    background-color: #ddd;
+    color: #333;
 }
 
 .dropdown-content {
@@ -78,7 +70,7 @@ header {
 }
 
 .dropdown-content a:hover {
-    background-color: #E6EFE6;
+    background-color: #ddd;
 }
 
 .dropdown:hover .dropdown-content {
@@ -89,22 +81,21 @@ header {
 nav {
     float: right;
     width: 30%;
-    height: 600px;
-    background: #79B791;
+    height: 500px;
+    background: #A5A5A5;
     padding: 20px;
 }
 
 nav ul {
     padding: 0;
     list-style-type: none;
-}
+  }
 
-#accountsDash {
+article {
     float: left;
+    padding: 20px;
     width: 70%;
-    height: 100%;
-    text-align: center;
-    color: #333;
+    height: 500px;
 }
 
 /* Added CSS for the table elements */
