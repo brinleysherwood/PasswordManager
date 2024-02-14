@@ -72,11 +72,53 @@
 
       <div id="accountResults">
         <table id="accountResultsId" class="resultsTable">
-          <tr><th>Website</th><th>Username</th><th>Password</th></tr>
+          <tr>
+            <th>Website Name</th>
+            <th>Username</th>
+            <th>Password</th>
+          </tr>
+          <tbody id="accountResultsTable">
+            <!-- Database data will be inserted here -->
+          </tbody>
         </table>
       </div>
 
   </div>
+  <script>
+/*
+CALEB FROST
+Added functions to add the user's accounts to the table body.
+I needed to add this in line
+*/
+document.addEventListener('DOMContentLoaded', function () {
+  fetchAccounts();
+});
+
+  function fetchAccounts() {
+    fetch('/accounts')
+      .then(response => response.json())
+      .then(data => updateTable(data))
+      .catch(error => console.error('Error fetching accounts:', error));
+  }
+
+
+// This function should help to update the table contents on the dashboard.
+function updateTable(accounts)
+{
+  const tableBody = document.getElementById('accountResultsTable');
+
+  console.log('Updating table with accounts:', accounts);
+
+
+  accounts.forEach(account => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${account.WebsiteName}</td>
+                    <td>${account.Username}</td>
+                    <td>${account.Password}</td>`;
+    tableBody.appendChild(row);
+  });
+}
+  </script>
 
   <script type="text/javascript" src="script.js"></script>
 </body>

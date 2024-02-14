@@ -38,6 +38,7 @@ CALEB FROST
 I am going to make below a connection to the database and 
 a connection to the server. I will create a query to add the content
 the user enters to the database.
+THIS IS OLDER CODE. BETTER CODE IS IN SERVER.JS
 */
 
 // Move the registration route outside the register function
@@ -87,7 +88,7 @@ function login() {
       // Redirect to home page if login is successful
       window.location.href = '/dashboard.html'; 
     } else {
-        alert('Login failed. Please try again.');
+        alert('Login failed. Enter correct credentials, or create an account'); // CALEB FROST changed the alert to say they entered wrong credentials
     }
 })
 .catch(error => {
@@ -95,7 +96,10 @@ function login() {
 });
 }
 
-// Adding Accounts Functions 
+// End of login code
+
+// Aleck
+// Adding Accounts Functions for dashboard
 var site;
 var user;
 var password;
@@ -133,3 +137,4 @@ function runAccounts() {
 
 	tableRowNumber++;
 }
+// End of adding accounts function
