@@ -106,3 +106,23 @@ nav ul {
     text-align: center;
     color: #333;
 }
+
+/* Added CSS for the table elements */
+.resultsTable {
+    border-collapse: collapse;
+    width: 50%;
+  }
+  
+  .resultsTable th, .resultsTable td {
+    border: 1px solid #ddd; /* Border color */
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .resultsTable th {
+    background-color: #f2f2f2; /* Header background color */
+  }
+  
+  .resultsTable tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row background color */
+  }
