@@ -19,7 +19,7 @@ const session = require('express-session'); // Express-session is middleware to 
 // It provides a way to associate a user's request with their specific session.
 
 app.use(session({
-  secret: '1&UvDgj9!oYpL$FqA5s@ZxGm2', // This is used to sign the session ID cookie, which is sent to browser. 
+  secret: '1&UvDgj9!oYpL$FqA5s@ZxGm2', // This is the secret password used to sign the session ID cookie, which is sent to browser. 
   // Browser sends cookie back with each request to verify identity. (in essence it is a type of symmetric encryption)
   resave: false,
   saveUninitialized: true,
