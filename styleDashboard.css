@@ -137,3 +137,8 @@ nav ul {
   #sideBar {
     text-align: center;
   }
+
+  #passwordContainer {
+    background-color: white;
+    border: solid black;
+  }
