@@ -59,6 +59,15 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error('Error inserting user input into database:', error);
       });
     }); // end AccountButton EventListener
+
+    // listen for user to log out
+  const logOutButton = document.getElementById("logOut");
+  logOutButton.addEventListener('click', function(event){
+    event.preventDefault()
+    logOut()
+    preventBack()
+  }); // end logout EventListener
+
 }); // end document EventListener
   
 // the following statement has been moved to previous dom event listener to prevent redundancy
@@ -143,6 +152,19 @@ function clearInputs() {
   document.getElementById("usernameInputId").value = "";
   document.getElementById("passwordInputId").value = "";
 }
+
+// redirect user to login page after log out
+function logOut(){
+  window.location.href="/index.html"
+}
+
+// prevent user from returning after logout
+function preventBack(){
+  window.history.forward();
+}
+window.addEventListener('load', function(){
+  preventBack()
+})
 
   // CALEB FROST
   function generatePassword() {
