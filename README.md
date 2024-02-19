@@ -1,2 +1,7 @@
 # PasswordManager
-Password Manager Project
+# Commands to Run before running program:
+
+```
+Shell
+$ npm install node
+```
