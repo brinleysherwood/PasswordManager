@@ -42,8 +42,7 @@ app.post('/newuser', (req, res) => {
   con.query(sql, [firstName, lastName, email, newPassword], (error, results) => {
     if (error) {
       console.error('Error inserting data into the database: ', error);
-      res.status(500).json({ error: 'Database error', details: error.message });
-      res.redirect('./createAccount.html')
+      res.redirect('index.html?success=false');
     } else {
       console.log('Data inserted successfully');
       res.redirect('index.html?success=true');
