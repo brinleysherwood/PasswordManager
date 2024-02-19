@@ -144,3 +144,43 @@ function clearInputs() {
   document.getElementById("passwordInputId").value = "";
 }
 
+  // CALEB FROST
+  function generatePassword() {
+    // Get the user's desired password length
+    const passwordLengthInput = document.getElementById('passwordLength');
+    const passwordLength = parseInt(passwordLengthInput.value, 10);
+  
+    // Validate that the input is a number
+    if (isNaN(passwordLength) || passwordLength <= 0) {
+      alert('Please enter a valid positive number for password length.');
+      return;
+    }
+  
+    // Call your password generation function (you can use the provided generateNewPassword function)
+    const generatedPassword = generateNewPassword(passwordLength);
+  
+    // Display the generated password
+    const passwordContainer = document.getElementById('passwordContainer');
+    passwordContainer.innerHTML = `<p>Your Generated Password: ${generatedPassword}</p>`;
+  }
+  
+  // This will update the password length when the user selects a certain range.
+  function updatePasswordLength() {
+    // Update the displayed password length value
+    const passwordLengthInput = document.getElementById('passwordLength');
+    const passwordLengthValue = document.getElementById('passwordLengthValue');
+    passwordLengthValue.textContent = passwordLengthInput.value;
+  }
+  
+  // Password creation.
+  function generateNewPassword(length) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
+    let password = "";
+  
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+  
+    return password;
+  }
