@@ -8,7 +8,7 @@
   <title>Home Page</title>
 </head>
 
-<body>
+<body onload="initialize()">
   <header>
     <h2>Passkey Forge</h2>
   </header>
@@ -41,14 +41,10 @@
     </nav>
   </div>
 
-  <div>
-    <h3 id="userFirstName"></h3>
-  </div>
-
   <div id="accountsDash">
       <h1>Accounts</h1>
       <hr>
-      <form id="inputAccountsForm">
+      <form id="inputAccounts">
         <table id="inputTable">
           <tr>
             <th>Website</th>
@@ -57,27 +53,38 @@
           </tr>
           <tr>
             <td>
-              <input id="websiteInputId" name="websiteInput" type="text" placeholder="Website">
+              <input id="websiteInput" type="text" placeholder="Website">
             </td>
             <td>
-              <input id="usernameInputId" name="usernameInput" type="text" placeholder="Username">
+              <input id="usernameInput" type="text" placeholder="Username">
             </td>
             <td>
-              <input id="passwordInputId" name="passwordInput" type="text" placeholder="Password">
+              <input id="passwordInput" type="text" placeholder="Password">
+            </td>
+            <td>
+              <p>Enter password selectors here</p>
             </td>
           </tr>
         </table>
         <div id="inputButtons">
-          <input type="button" value="Add Account" id="addAccountButton">
+          <input type="button" value="Add Account" id="addAccountButton" onclick="runAccounts()">
           <input type="button" value="Clear"       id="clearButton"      onclick="clearInputs()">
+          <br>
+          <br>
+          <label for="passwordLength">Password Length:</label>
+          <input type="range" id="passwordLength" min="5" max="20" value="5" oninput="updatePasswordLength()">
+          <span id="passwordLengthValue">5</span>
+          <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
         </div>
+        <br>
+        <div id="passwordContainer"></div>
         <hr>
       </form>
 
       <div id="accountResults">
         <table id="accountResultsId" class="resultsTable">
           <tr>
-            <th>Website</th>
+            <th>Website Name</th>
             <th>Username</th>
             <th>Password</th>
           </tr>
@@ -88,9 +95,44 @@
       </div>
 
   </div>
+  <script>
+
+/*
+CALEB FROST
+Added functions to add the user's accounts to the table body.
+I needed to add this in line so it worked correctly. It wouldn't work in script.js
+*/
+document.addEventListener('DOMContentLoaded', function () {
+  fetchAccounts();
+});
+
+  function fetchAccounts() {
+    fetch('/accounts')
+      .then(response => response.json())
+      .then(data => updateTable(data))
+      .catch(error => console.error('Error fetching accounts:', error));
+  }
+
+
+// This function should help to update the table contents on the dashboard.
+function updateTable(accounts)
+{
+  const tableBody = document.getElementById('accountResultsTable');
+
+  console.log('Updating table with accounts:', accounts);
+
+
+  accounts.forEach(account => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${account.WebsiteName}</td>
+                    <td>${account.Username}</td>
+                    <td>${account.Password}</td>`;
+    tableBody.appendChild(row);
+  });
+}
+  </script>
 
   <script type="text/javascript" src="script.js"></script>
-
 </body>
 
 </html>
