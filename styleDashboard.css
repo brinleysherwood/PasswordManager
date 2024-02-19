@@ -125,3 +125,15 @@ nav ul {
   .resultsTable tr:nth-child(even) {
     background-color: #f9f9f9; /* Alternating row background color */
   }
+
+  table {
+    margin: 0 auto;
+  }
+
+  #userFirstName {
+    text-align: center;
+  }
+
+  #sideBar {
+    text-align: center;
+  }

@@ -8,35 +8,42 @@
   <title>Home Page</title>
 </head>
 
-<body onload="initialize()">
+<body>
   <header>
     <h2>Passkey Forge</h2>
   </header>
 
   <div class="navBar">
-    <a class="active" href="#home">Dashboard</a>
-    <a href="generate">Generate</a>
-    <a href="accounts">Accounts</a>
-    <a href="about">About</a>
-    <a href="contact">Contact</a>
-    <div class="dropdown">
-      <button class="dropbtn">Profile
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="#">My Profile</a>
-        <a href="#">Sign Out</a>
-      </div>
-    </div>
-
+    <h3 id="userFirstName"></h3>
   </div>
 
   <div id="sideBar">
     <nav>
       <ul>
-        <li><a href="#">Pass</a></li>
-        <li><a href="#">Key</a></li>
-        <li><a href="#">Forge</a></li>
+        
+          <h4>Password Generator</h4>
+          <input type="text" name="" id="generatedPassword" disabled>
+          <br>
+          <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength">
+          <label for="slider">length</label>
+          <br>
+          <input type="checkbox" class="uppercase">
+          <label for="checkbox">A-Z</label>
+          <br>
+          <input type="checkbox" class="lowercase">
+          <label for="checkbox">a-z</label>
+          <br>
+          <input type="checkbox" class="numbers">
+          <label for="checkbox">0-9</label>
+          <br>
+          <input type="checkbox" class="specialCharacters">
+          <label for="checkbox">!@#$%^&*</label>
+          <br>
+          <button id="generatePasswordButton">Generate Password</button>
+        
+          
+   
+
       </ul>
     </nav>
   </div>
@@ -44,7 +51,7 @@
   <div id="accountsDash">
       <h1>Accounts</h1>
       <hr>
-      <form id="inputAccounts">
+      <form id="inputAccountsForm">
         <table id="inputTable">
           <tr>
             <th>Website</th>
@@ -53,38 +60,27 @@
           </tr>
           <tr>
             <td>
-              <input id="websiteInput" type="text" placeholder="Website">
+              <input id="websiteInputId" name="websiteInput" type="text" placeholder="Website">
             </td>
             <td>
-              <input id="usernameInput" type="text" placeholder="Username">
+              <input id="usernameInputId" name="usernameInput" type="text" placeholder="Username">
             </td>
             <td>
-              <input id="passwordInput" type="text" placeholder="Password">
-            </td>
-            <td>
-              <p>Enter password selectors here</p>
+              <input id="passwordInputId" name="passwordInput" type="text" placeholder="Password">
             </td>
           </tr>
         </table>
         <div id="inputButtons">
-          <input type="button" value="Add Account" id="addAccountButton" onclick="runAccounts()">
+          <input type="button" value="Add Account" id="addAccountButton">
           <input type="button" value="Clear"       id="clearButton"      onclick="clearInputs()">
-          <br>
-          <br>
-          <label for="passwordLength">Password Length:</label>
-          <input type="range" id="passwordLength" min="5" max="20" value="5" oninput="updatePasswordLength()">
-          <span id="passwordLengthValue">5</span>
-          <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
         </div>
-        <br>
-        <div id="passwordContainer"></div>
         <hr>
       </form>
 
       <div id="accountResults">
         <table id="accountResultsId" class="resultsTable">
           <tr>
-            <th>Website Name</th>
+            <th>Website</th>
             <th>Username</th>
             <th>Password</th>
           </tr>
@@ -95,44 +91,9 @@
       </div>
 
   </div>
-  <script>
-
-/*
-CALEB FROST
-Added functions to add the user's accounts to the table body.
-I needed to add this in line so it worked correctly. It wouldn't work in script.js
-*/
-document.addEventListener('DOMContentLoaded', function () {
-  fetchAccounts();
-});
-
-  function fetchAccounts() {
-    fetch('/accounts')
-      .then(response => response.json())
-      .then(data => updateTable(data))
-      .catch(error => console.error('Error fetching accounts:', error));
-  }
-
-
-// This function should help to update the table contents on the dashboard.
-function updateTable(accounts)
-{
-  const tableBody = document.getElementById('accountResultsTable');
-
-  console.log('Updating table with accounts:', accounts);
-
-
-  accounts.forEach(account => {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${account.WebsiteName}</td>
-                    <td>${account.Username}</td>
-                    <td>${account.Password}</td>`;
-    tableBody.appendChild(row);
-  });
-}
-  </script>
 
   <script type="text/javascript" src="script.js"></script>
+
 </body>
 
 </html>
