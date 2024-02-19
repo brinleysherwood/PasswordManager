@@ -8,7 +8,7 @@
   <title>Home Page</title>
 </head>
 
-<body onload="initialize()">
+<body>
   <header>
     <h2>Passkey Forge</h2>
   </header>
@@ -48,7 +48,7 @@
   <div id="accountsDash">
       <h1>Accounts</h1>
       <hr>
-      <form id="inputAccounts">
+      <form id="inputAccountsForm">
         <table id="inputTable">
           <tr>
             <th>Website</th>
@@ -57,18 +57,18 @@
           </tr>
           <tr>
             <td>
-              <input id="websiteInput" type="text" placeholder="Website">
+              <input id="websiteInputId" name="websiteInput" type="text" placeholder="Website">
             </td>
             <td>
-              <input id="usernameInput" type="text" placeholder="Username">
+              <input id="usernameInputId" name="usernameInput" type="text" placeholder="Username">
             </td>
             <td>
-              <input id="passwordInput" type="text" placeholder="Password">
+              <input id="passwordInputId" name="passwordInput" type="text" placeholder="Password">
             </td>
           </tr>
         </table>
         <div id="inputButtons">
-          <input type="button" value="Add Account" id="addAccountButton" onclick="runAccounts()">
+          <input type="button" value="Add Account" id="addAccountButton">
           <input type="button" value="Clear"       id="clearButton"      onclick="clearInputs()">
         </div>
         <hr>

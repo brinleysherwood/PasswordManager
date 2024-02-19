@@ -85,6 +85,7 @@ const port = 8200;
 app.listen(port, () => {
   console.log(`The web server is alive! \nListening on http://localhost:${port}`);
 });
+
 /*
 CALEB FROST
 Created below is the get request that will display the logged in user's accounts
@@ -107,3 +108,26 @@ app.get('/accounts', (req, res) => {
     res.json(results);
   })
 })
+
+// Add new accounts associated with the user to the database
+// Define a route handler for inserting a new account
+app.post('/insertUserInput', (req, res) => {
+  const user_id = req.session.user_id; // Get user ID from session or request
+
+  if (!user_id) {
+      return res.sendStatus(401); // Check if user is authorized to add accounts
+  }
+
+  const { username, password, websiteName } = req.body;
+
+  // Execute SQL query to insert a new row into the Account table
+  con.query('INSERT INTO Account (user_id, Username, Password, WebsiteName) VALUES (?, ?, ?, ?)', [user_id, username, password, websiteName], (error, result) => {
+      if (error) {
+          console.error('Error inserting into the database:', error);
+          return res.sendStatus(500); // Internal server error
+      }
+
+      console.log('New account inserted:', result);
+      res.status(201).json({ message: 'Account inserted successfully' });
+  });
+});
