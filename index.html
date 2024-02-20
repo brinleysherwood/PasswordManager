@@ -19,12 +19,21 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
 
-      <button type="button" onclick="login()">Login</button>
+      <button type="button" id="loginButton" onclick="login()">Login</button>
       <p>Don't have an account? <a href="createAccount.html">Create Account</a></p>
     </form>
   </div>
 
   <script>
+    // Allows user to hit enter to login.
+    document.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        document.getElementById("loginButton").click();
+        console.log("Button was clicked.")
+      }
+    });
+    
     // Check if there's a success message in the query parameters
     const urlParams = new URLSearchParams(window.location.search);
     const successMessage = urlParams.get('success');

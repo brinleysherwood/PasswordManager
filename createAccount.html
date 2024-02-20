@@ -28,10 +28,21 @@
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-      <button type="submit">Create Account</button>
+      <button type="submit" id="createAccount">Create Account</button>
       <p>Already have an account? <a href="loginpage.html">Login</a></p>
     </form>
   </div>
+
+  <script>
+    // Allows user to hit enter to login.
+    document.addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        document.getElementById("createAccount").click();
+        console.log("Button was clicked.")
+      }
+    });
+  </script>
 
   <script src="script.js"></script>
   
