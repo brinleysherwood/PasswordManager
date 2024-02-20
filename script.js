@@ -206,3 +206,26 @@ window.addEventListener('load', function(){
   
     return password;
   }
+
+  function copyPassword() {
+    const passwordInput = document.getElementById('passwordContainer');
+    const passwordText = passwordInput.textContent || passwordInput.innerText;
+
+    const password = passwordText.replace('Your Generated Password: ', '').trim();// This is to trim out any of the uneeded text we may have
+  
+    // This will write the password to the computer clipboard. This is the API suggested by Mr. GPT
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(password)
+        .then(() => {
+          alert('Password copied');
+        })
+        .catch((err) => {
+          console.error('Unable to copy password', err);
+          alert('Unable to copy password. Please try again.');
+        });
+    } else {
+      console.error('Clipboard API not supported');
+      alert('Clipboard API not supported. Please copy the password manually.');
+    }
+  }
+  

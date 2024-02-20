@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styleDashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Home Page</title>
 </head>
 
@@ -23,6 +24,9 @@
         
           <h3>Password Generator</h3>
           <div id="passwordContainer"></div>
+          <br>
+          <button id="copyButton" onclick="copyPassword()"><i class="fa-solid fa-copy"></i></button>
+          <br>
           <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
           <span id="passwordLengthValue">12</span>
           <label for="slider">length</label>
