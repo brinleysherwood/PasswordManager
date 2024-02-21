@@ -70,10 +70,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 }); // end document EventListener
   
-// the following statement has been moved to previous dom event listener to prevent redundancy
-// document.addEventListener('DOMContentLoaded', function () {
-//   fetchAccounts();
-// });
+// index.html specific code
+document.addEventListener('DOMContentLoaded', function(){
+  console.log('index.html code loaded')
+  window.onload = function(){
+    preventBack()
+  }
+})// end index.html document EventListener
   
 // fetch the accounts associated with the user
 function fetchAccounts() {
@@ -158,13 +161,28 @@ function logOut(){
   window.location.href="/index.html"
 }
 
+// Redirect user to login page after log out and clear session data
+function logOut(){
+  fetch('/logout', { method: 'POST' }) // Assuming you have a logout route on your server
+    .then(response => {
+      if (response.ok) {
+        window.location.href = "/index.html"; // Redirect to login page
+      } else {
+        console.error('Failed to log out:', response.statusText);
+        // Handle logout failure if necessary
+      }
+    })
+    .catch(error => {
+      console.error('Error logging out:', error);
+      // Handle logout error if necessary
+    });
+}
+
 // prevent user from returning after logout
 function preventBack(){
   window.history.forward();
 }
-window.addEventListener('load', function(){
-  preventBack()
-})
+
 
   // CALEB FROST
   function generatePassword() {
