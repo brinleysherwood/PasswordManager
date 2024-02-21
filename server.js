@@ -128,22 +128,9 @@ app.post('/insertUserInput', (req, res) => {
 
   const { username, password, websiteName } = req.body;
 
-  if (!username || !password || !websiteName) {
-    console.log('Missing required fields')
-    return res.sendStatus(400);
-  }
-  if (error) {
-        console.error('Error inserting into the database:', error);
-        return res.sendStatus(500); // Internal server error
-    }
-
   // Execute SQL query to insert a new row into the Account table
   con.query('INSERT INTO Account (user_id, Username, Password, WebsiteName) VALUES (?, ?, ?, ?)', [user_id, username, password, websiteName], (error, result) => {
     // This checks to make sure there are all required fields.
-    if (!username || !password || !websiteName) {
-      console.log('Missing required fields')
-      return res.sendStatus(400);
-    }
     
     if (error) {
           console.error('Error inserting into the database:', error);
