@@ -34,6 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
         websiteName: formData.get('websiteInput')
       };
 
+      // Check for missing required fields on the client-side
+      if (!data.username || !data.password || !data.websiteName) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
       console.log(data)
 
       fetch('/insertUserInput', {
