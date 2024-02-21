@@ -166,9 +166,6 @@ window.addEventListener('load', function(){
   preventBack()
 })
 
-function exitProgram() {
-  alert('Button Works')
-}
   // CALEB FROST
   function generatePassword() {
     // Get the user's desired password length
@@ -199,7 +196,7 @@ function exitProgram() {
   
   // Password creation.
   function generateNewPassword(length) {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
+    const charset = getCharset();
     let password = "";
   
     for (let i = 0; i < length; i++) {
@@ -210,17 +207,44 @@ function exitProgram() {
     return password;
   }
 
+// Helper function to determine character set based on teh checkboxes selected by the user.
+function getCharset() {
+  let charset = '';
+
+  if (document.querySelector('.uppercase').checked) {
+      charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+
+  if (document.querySelector('.lowercase').checked) {
+      charset += "abcdefghijklmnopqrstuvwxyz";
+  }
+
+  if (document.querySelector('.numbers').checked) {
+      charset += "0123456789";
+  }
+
+  if (document.querySelector('.specialCharacters').checked) {
+      charset += "!@#$%^&*()_-+=<>?";
+  }  
+  
+  if (!charset) { //This will execute if the charset is empty.
+    alert('Please select an option below for password generation.');
+  }
+
+  return charset;
+  }
+
   function copyPassword() {
     const passwordInput = document.getElementById('passwordContainer');
     const passwordText = passwordInput.textContent || passwordInput.innerText;
 
-    const password = passwordText.replace('Your Generated Password: ', '').trim();// This is to trim out any of the uneeded text we may have
+    const password = passwordText.replace('Your Generated Password: ', '').trim(); // This is to trim out any of the uneeded text we may have when copying
   
     // This will write the password to the computer clipboard. This is the API suggested by Mr. GPT
     if (navigator.clipboard) {
       navigator.clipboard.writeText(password)
         .then(() => {
-          alert('Password copied');
+          console.log('Password Copied');
         })
         .catch((err) => {
           console.error('Unable to copy password', err);

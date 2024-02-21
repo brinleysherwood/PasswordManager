@@ -16,51 +16,42 @@
 
   <div class="navBar">
     <h3 id="userFirstName"></h3>
-    <div class="iconContainer" onclick="exitProgram()">
-      <div id="bar1"></div>
-      <div id="bar2"></div>
-      <div id="bar3"></div>
-    </div>
   </div>
 
   <div id="sideBar">
-    <ul>
-      <h3>Password Generator</h3>
-      <div id="passwordContainer"></div>
-      <br>
+    <nav>
+      <ul>
+        
+          <h3>Password Generator</h3>
+          <div id="passwordContainer"></div>
+          <br>
+          <button id="copyButton" title="Copy Passkey" onclick="copyPassword()"><i class="fa-sharp fa-solid fa-copy"></i></button>
+          <br>
+          <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
+          <span id="passwordLengthValue">12</span>
+          <label for="slider">length</label>
+          <br>
+          <input type="checkbox" class="uppercase" checked>
+          <label for="checkbox">A-Z</label>
+          <br>
+          <input type="checkbox" class="lowercase" checked>
+          <label for="checkbox">a-z</label>
+          <br>
+          <input type="checkbox" class="numbers" checked>
+          <label for="checkbox">0-9</label>
+          <br>
+          <input type="checkbox" class="specialCharacters" checked>
+          <label for="checkbox">!@#$%^&*</label>
+          <br>
+          <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
 
-      <button id="copyButton" onclick="copyPassword()"><i class="fa-solid fa-copy"></i></button>
-      <br>
-
-      <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
-      <span id="passwordLengthValue">12</span>
-      <label for="slider">length</label>
-      <br>
-
-      <input type="checkbox" class="uppercase">
-      <label for="checkbox">A-Z</label>
-      <br>
-
-      <input type="checkbox" class="lowercase">
-      <label for="checkbox">a-z</label>
-      <br>
-
-      <input type="checkbox" class="numbers">
-      <label for="checkbox">0-9</label>
-      <br>
-
-      <input type="checkbox" class="specialCharacters">
-      <label for="checkbox">!@#$%^&*</label>
-      <br>
-
-      <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
-    </ul>
+      </ul>
+    </nav>
   </div>
 
   <div id="accountsDash">
       <h1>Accounts</h1>
       <hr>
-
       <form id="inputAccountsForm">
         <table id="inputTable">
           <tr>
@@ -80,13 +71,11 @@
             </td>
           </tr>
         </table>
-
         <div id="inputButtons">
           <input type="button" value="Add Account" id="addAccountButton">
           <input type="button" value="Clear"       id="clearButton"      onclick="clearInputs()">
         </div>
         <hr>
-
       </form>
 
       <div id="accountResults">
