@@ -23,12 +23,20 @@ const con = mysql.createConnection({
   database: 'spring2024Cteam4',
 });
 
-con.connect((err) => {
-  if (err) {
-    console.error('Error connecting to database:', err);
-    return;
+con.on('error', function(err) {
+  console.error('Database error:', err);
+  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+    // Attempt to reconnect
+    con.connect(function(error) {
+      if (error) {
+        console.error('Error reconnecting:', error);
+      } else {
+        console.log('Reconnected to database');
+      }
+    });
+  } else {
+    throw err;
   }
-  console.log('Connected to database');
 });
 
 app.post('/newuser', (req, res) => {
