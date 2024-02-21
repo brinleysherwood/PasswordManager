@@ -131,3 +131,9 @@ app.post('/insertUserInput', (req, res) => {
       res.status(201).json({ message: 'Account inserted successfully' });
   });
 });
+
+// log out user and clear session data
+app.post('/logout', (req, res) => {
+  req.session.destroy(); // Clear session data
+  res.sendStatus(200); // Respond with success status
+});
