@@ -166,6 +166,9 @@ window.addEventListener('load', function(){
   preventBack()
 })
 
+function exitProgram() {
+  alert('Button Works')
+}
   // CALEB FROST
   function generatePassword() {
     // Get the user's desired password length
