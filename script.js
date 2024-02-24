@@ -104,8 +104,18 @@ function updateTable(accounts)
     const row = document.createElement('tr');
     row.innerHTML = `<td>${account.WebsiteName}</td>
                     <td>${account.Username}</td>
-                    <td>${account.Password}</td>`;
+                    <td>${account.Password}</td>
+                    <td><button class="deleteButton" data-acct-id="${account.acct_ID}">Delete</button></td>`;
     tableBody.appendChild(row);
+  });
+
+  document.querySelectorAll('.deleteButton').forEach(button => {
+    button.addEventListener('click', function () {
+      // const acct_id = 47;
+      const acct_id = this.getAttribute('data-acct-id');
+      // console.log('Clicked Delete Button. acct_id: ', acct_id); // This was added for testing
+      deleteAccount(acct_id); // refer to line 291 for the deleteAccount function
+    });
   });
 }
 
@@ -202,12 +212,19 @@ function preventBack(){
       return;
     }
   
-    // Call your password generation function (you can use the provided generateNewPassword function)
+    // Call the password generation function (you can use the provided generateNewPassword function)
     const generatedPassword = generateNewPassword(passwordLength);
   
     // Display the generated password
     const passwordContainer = document.getElementById('passwordContainer');
     passwordContainer.innerHTML = `<p>Your Generated Password: ${generatedPassword}</p>`;
+
+    if (passwordContainer.innerHTML.trim() !== '') {
+      passwordContainer.classList.add('hasInnerHTML');
+    }
+    else {
+      passwordContainer.classList.remove('hasInnerHTML');
+    }
   }
   
   // This will update the password length when the user selects a certain range.
@@ -263,12 +280,13 @@ function getCharset() {
     const passwordText = passwordInput.textContent || passwordInput.innerText;
 
     const password = passwordText.replace('Your Generated Password: ', '').trim(); // This is to trim out any of the uneeded text we may have when copying
-  
+
     // This will write the password to the computer clipboard. This is the API suggested by Mr. GPT
     if (navigator.clipboard) {
       navigator.clipboard.writeText(password)
         .then(() => {
           console.log('Password Copied');
+          alert('Password copied to clipboard.')
         })
         .catch((err) => {
           console.error('Unable to copy password', err);
@@ -280,3 +298,26 @@ function getCharset() {
     }
   }
   
+  function deleteAccount(acctId) {
+    // console.log('Deleting account with acct_id: ', acctId);
+    fetch('/deleteAccount', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({acct_id: acctId})
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete account');
+      }
+      return response.json();
+    })
+    .then(result => {
+      console.log('Account deleted successfully: ', result);
+      fetchAccounts(); //Update table after deletion
+    })
+    .catch(error => {
+      console.error('Error deleting account: ', error);
+    })
+  } // Reference line 151 in server.js for the query execution.

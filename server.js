@@ -147,3 +147,27 @@ app.post('/logout', (req, res) => {
   req.session.destroy(); // Clear session data
   res.sendStatus(200); // Respond with success status
 });
+
+app.delete('/deleteAccount', (req, res) => {
+  const user_id = req.session.user_id;
+  const acct_id = req.body.acct_id;
+
+  if (!user_id || !acct_id) {
+    return res.status(400).json({ error: 'Invalid request' });
+  }
+
+  con.query('DELETE FROM Account WHERE user_id = ? AND acct_id = ?', [user_id, acct_id], (error, result) => {
+    if (error) {
+      console.error('Error deleting account from the database:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (result.affectedRows === 1) {
+      console.log('Account deleted successfully');
+      res.json({ message: 'Account deleted successfully' });
+    } else {
+      console.error('Account not found, or not authorized for deletion');
+      res.status(404).json({ error: 'Account not found, or not authorized for deletion' });
+    }
+  });
+});

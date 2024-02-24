@@ -16,15 +16,10 @@
 
   <div class="navBar">
     <h3 id="userFirstName"></h3>
-    <div class="drop">
-      <div class="iconContainer">
-        <div id="bar1"></div>
-        <div id="bar2"></div>
-        <div id="bar3"></div>
-      </div>
-      <div class="dropContent">
-        <p onclick="logOut()">Sign Out</p>
-      </div>
+    <div class="iconContainer" onclick="exitProgram()">
+      <div id="bar1"></div>
+      <div id="bar2"></div>
+      <div id="bar3"></div>
     </div>
   </div>
 
@@ -52,6 +47,7 @@
           <br>
           <input type="checkbox" class="specialCharacters" checked>
           <label for="checkbox">!@#$%^&*</label>
+          <br>
           <br>
           <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
 
@@ -94,6 +90,7 @@
             <th>Website</th>
             <th>Username</th>
             <th>Password</th>
+            <th>Action</th>
           </tr>
           <tbody id="accountResultsTable">
             <!-- Database data will be inserted here -->
