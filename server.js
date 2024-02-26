@@ -130,15 +130,31 @@ app.post('/insertUserInput', (req, res) => {
 
   // Execute SQL query to insert a new row into the Account table
   con.query('INSERT INTO Account (user_id, Username, Password, WebsiteName) VALUES (?, ?, ?, ?)', [user_id, username, password, websiteName], (error, result) => {
-    // This checks to make sure there are all required fields.
-    
-    if (error) {
+      if (error) {
           console.error('Error inserting into the database:', error);
           return res.sendStatus(500); // Internal server error
       }
 
       console.log('New account inserted:', result);
       res.status(201).json({ message: 'Account inserted successfully' });
+  });
+});
+
+// Endpoint to handle updating an account
+app.post('/updateAccount', (req, res) => {
+
+  // Extract data from the request body
+  const {accountId, website, username, password } = req.body;
+
+  // Execute SQL query to update the account in the database
+  con.query('UPDATE Account SET Username = ?, Password = ?, WebsiteName = ? WHERE acct_ID = ?', [username, password, website, accountId], (error, result) => {
+      if (error) {
+          console.error('Error updating account:', error);
+          return res.sendStatus(500); // Internal server error
+      }
+
+      console.log('Account updated successfully:', result);
+      res.status(200).json({ message: 'Account updated successfully' });
   });
 });
 

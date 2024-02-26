@@ -25,34 +25,34 @@
 
   <div id="sideBar">
     <nav>
-      <ul>
-        
-          <h3>Password Generator</h3>
-          <div id="passwordContainer"></div>
-          <br>
-          <button id="copyButton" title="Copy Passkey" onclick="copyPassword()"><i class="fa-sharp fa-solid fa-copy"></i></button>
-          <br>
-          <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
-          <span id="passwordLengthValue">12</span>
-          <label for="slider">length</label>
-          <br>
-          <input type="checkbox" class="uppercase" checked>
-          <label for="checkbox">A-Z</label>
-          <br>
-          <input type="checkbox" class="lowercase" checked>
-          <label for="checkbox">a-z</label>
-          <br>
-          <input type="checkbox" class="numbers" checked>
-          <label for="checkbox">0-9</label>
-          <br>
-          <input type="checkbox" class="specialCharacters" checked>
-          <label for="checkbox">!@#$%^&*</label>
-          <br>
-          <br>
-          <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
+    <ul>
 
-      </ul>
-    </nav>
+      <h3>Password Generator</h3>
+      <div id="passwordContainer"></div>
+      <br>
+      <button id="copyButton" title="Copy Passkey" onclick="copyPassword()"><i class="fa-sharp fa-solid fa-copy"></i></button>
+      <br>
+      <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
+      <span id="passwordLengthValue">12</span>
+      <label for="slider">length</label>
+      <br>
+      <input type="checkbox" class="uppercase" checked>
+      <label for="checkbox">A-Z</label>
+      <br>
+      <input type="checkbox" class="lowercase" checked>
+      <label for="checkbox">a-z</label>
+      <br>
+      <input type="checkbox" class="numbers" checked>
+      <label for="checkbox">0-9</label>
+      <br>
+      <input type="checkbox" class="specialCharacters" checked>
+      <label for="checkbox">!@#$%^&*</label>
+      <br>
+      <br>
+      <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
+   
+    </ul>
+  </nav>
   </div>
 
   <div id="accountsDash">
@@ -99,6 +99,22 @@
       </div>
 
   </div>
+  <br>
+
+  <form id="editForm" class="edit-form" style="display: none;">
+    <input style="display: none;" id="editAccountId" name="editAccountId"> <!-- Hidden input field for accountId -->
+
+    <label for="editWebsiteInput">Website:</label>
+    <input type="text" id="editWebsiteInput" name="editWebsiteInput" placeholder="Edit Website">
+  
+    <label for="editUsernameInput">Username:</label>
+    <input type="text" id="editUsernameInput" name="editUsernameInput" placeholder="Edit Username">
+  
+    <label for="editPasswordInput">Password:</label>
+    <input type="text" id="editPasswordInput" name="editPasswordInput" placeholder="Edit Password">
+
+    <input type="button" value="submit changes" id="editFormSubmitButton" data-acct-id="${account.acct_ID}">
+  </form>
 
   <script type="text/javascript" src="script.js"></script>
 

@@ -1,5 +1,68 @@
+// DOCUMENT EVENT LISTENER
 document.addEventListener("DOMContentLoaded", function() {
   console.log('DOMContentLoaded event fired');
+
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('editButton')) {
+      // Get the parent row of the clicked button
+      const row = event.target.closest('tr');
+      if (!row) {
+        console.error('Parent row not found');
+        return;
+      }
+  
+      // Extract account details from the row
+      const accountId = row.cells[0].textContent;
+      const websiteName = row.cells[1].textContent;
+      const username = row.cells[2].textContent;
+      const password = row.cells[3].textContent;
+  
+      // Populate form with account details for editing
+      populateEditForm(accountId, websiteName, username, password);
+    }
+  });
+
+   // Add event listener for the submit button in the edit form
+   const editForm = document.getElementById('editForm');
+   const editFormButton = document.getElementById('editFormSubmitButton');
+ 
+     editFormButton.addEventListener('click', function(event) {
+       console.log('button clicked')
+       event.preventDefault(); // Prevent default button behavior
+ 
+       const formData = new FormData(editForm);
+       const data = {
+         accountId: formData.get('editAccountId'),
+         website: formData.get('editWebsiteInput'),
+         username: formData.get('editUsernameInput'),
+         password: formData.get('editPasswordInput')
+       };
+ 
+       console.log(data)
+     
+       fetch('/updateAccount', {
+         method: 'POST',
+         headers: {
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(data)
+       })
+       .then(response => {
+         if (!response.ok) {
+           throw new Error('Failed to edit data');
+         }
+         return response.json();
+       })
+       .then(result => {
+         console.log('Account updated successfully:', result);
+         // Update the UI by re-fetching accounts
+         fetchAccounts();
+         document.getElementById('editForm').style.display = 'none';
+       })
+       .catch(error => {
+         console.error('Error updating account:', error);
+       });
+ });
 
   // Fetch user data from server
   fetch('/user')
@@ -40,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
       }
 
+      
       console.log(data)
 
       fetch('/insertUserInput', {
@@ -73,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     logOut()
     preventBack()
   }); // end logout EventListener
-
+ 
 }); // end document EventListener
   
 // index.html specific code
@@ -102,9 +166,11 @@ function updateTable(accounts)
   
   accounts.forEach(account => {
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${account.WebsiteName}</td>
+    row.innerHTML = `<td style="display: none;"> ${account.acct_ID}</td>
+                    <td>${account.WebsiteName}</td>
                     <td>${account.Username}</td>
                     <td>${account.Password}</td>
+                    <td><button class="editButton">Edit</button></td>
                     <td><button class="deleteButton" data-acct-id="${account.acct_ID}">Delete</button></td>`;
     tableBody.appendChild(row);
   });
@@ -199,7 +265,6 @@ function preventBack(){
   window.history.forward();
 }
 
-
   // CALEB FROST
   function generatePassword() {
     // Get the user's desired password length
@@ -248,7 +313,7 @@ function preventBack(){
     return password;
   }
 
-// Helper function to determine character set based on teh checkboxes selected by the user.
+  // Helper function to determine character set based on teh checkboxes selected by the user.
 function getCharset() {
   let charset = '';
 
@@ -280,7 +345,7 @@ function getCharset() {
     const passwordText = passwordInput.textContent || passwordInput.innerText;
 
     const password = passwordText.replace('Your Generated Password: ', '').trim(); // This is to trim out any of the uneeded text we may have when copying
-
+  
     // This will write the password to the computer clipboard. This is the API suggested by Mr. GPT
     if (navigator.clipboard) {
       navigator.clipboard.writeText(password)
@@ -297,27 +362,63 @@ function getCharset() {
       alert('Clipboard API not supported. Please copy the password manually.');
     }
   }
+
+  // show edit form 
+  function showEditForm(websiteName, username, password) {
+    // Populate form fields with data from selected row
+    document.getElementById('editWebsiteInput').value = websiteName;
+    document.getElementById('editUsernameInput').value = username;
+    document.getElementById('editPasswordInput').value = password;
   
-  function deleteAccount(acctId) {
-    // console.log('Deleting account with acct_id: ', acctId);
-    fetch('/deleteAccount', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({acct_id: acctId})
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to delete account');
-      }
-      return response.json();
-    })
-    .then(result => {
-      console.log('Account deleted successfully: ', result);
-      fetchAccounts(); //Update table after deletion
-    })
-    .catch(error => {
-      console.error('Error deleting account: ', error);
-    })
-  } // Reference line 151 in server.js for the query execution.
+    // Display the edit form
+    document.getElementById('editForm').style.display = 'block';
+  }
+
+  // Function to populate edit form with account details
+function populateEditForm(accountId, websiteName, username, password) {
+
+    // Get references to the input fields
+    const editWebsiteInput = document.getElementById('editWebsiteInput');
+    const editUsernameInput = document.getElementById('editUsernameInput');
+    const editPasswordInput = document.getElementById('editPasswordInput');
+    const accountIdInput = document.getElementById('editAccountId'); // Add a hidden input field for accountId
+ 
+   // Assign values to the input fields
+   editWebsiteInput.value = websiteName;
+   editUsernameInput.value = username;
+   editPasswordInput.value = password;
+   accountIdInput.value = accountId; // Populate the hidden input field with accountId
+ 
+   // Check if any of the elements are missing
+   if (!editWebsiteInput || !editUsernameInput || !editPasswordInput) {
+     console.error('One or more elements for editing not found');
+     return;
+   }
+ 
+   // Show edit form (you may need to implement this)
+   showEditForm(websiteName, username, password);
+}
+
+function deleteAccount(acctId) {
+  // console.log('Deleting account with acct_id: ', acctId);
+  fetch('/deleteAccount', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({acct_id: acctId})
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to delete account');
+    }
+    return response.json();
+  })
+  .then(result => {
+    console.log('Account deleted successfully: ', result);
+    fetchAccounts(); //Update table after deletion
+  })
+  .catch(error => {
+    console.error('Error deleting account: ', error);
+  })
+} // Reference line 151 in server.js for the query execution.
