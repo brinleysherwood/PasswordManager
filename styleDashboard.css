@@ -127,6 +127,11 @@ header {
 .resultsTable th {
     background-color: #f2f2f2; /* Header background color */
 }
+
+td button {
+    display: block;
+    margin: auto;
+}
   
 .resultsTable tr:nth-child(even) {
     background-color: #f9f9f9; /* Alternating row background color */
@@ -148,4 +153,9 @@ table {
 
 .hasInnerHTML {
     border: solid black;
+}
+
+#passwordLength {
+    accent-color: #596869;
+    border-radius: 8px;
 }
