@@ -290,6 +290,9 @@ function preventBack(){
     else {
       passwordContainer.classList.remove('hasInnerHTML');
     }
+
+    const passwordInput = document.getElementById('passwordInputId')
+    passwordInput.value = generatedPassword
   }
   
   // This will update the password length when the user selects a certain range.
@@ -400,6 +403,14 @@ function populateEditForm(accountId, websiteName, username, password) {
 }
 
 function deleteAccount(acctId) {
+  // Display a confirmation modal
+  const isConfirmed = window.confirm("Are you sure you want to delete this account?");
+
+  if (!isConfirmed) {
+    return; // If the user cancels, do nothing
+  }
+  // If the user confirms, proceed with the deletion
+  
   // console.log('Deleting account with acct_id: ', acctId);
   fetch('/deleteAccount', {
     method: 'DELETE',
