@@ -16,25 +16,29 @@
 
   <div class="navBar">
     <h3 id="userFirstName"></h3>
-    <div class="iconContainer" onclick="logOut()">
-      <div id="bar1"></div>
-      <div id="bar2"></div>
-      <div id="bar3"></div>
+    <div class="drop">
+      <div class="iconContainer">
+        <div id="bar1"></div>
+        <div id="bar2"></div>
+        <div id="bar3"></div>
+      </div>
+      <div class="dropContent">
+        <p onclick="logOut()">Sign Out</p>
+      </div>
     </div>
   </div>
 
   <div id="sideBar">
-    <nav>
-    <ul>
-
-      <h3>Password Generator</h3>
+    <h3>Password Generator</h3>
       <div id="passwordContainer"></div>
-      <br>
       <button id="copyButton" title="Copy Passkey" onclick="copyPassword()"><i class="fa-sharp fa-solid fa-copy"></i></button>
+      <br><br>
+      <input type="range" min="1" max="30" value="15" class="slider" id="passwordLength" onchange="updatePasswordLength()">
+      <span id="passwordLengthValue">15</span>
+      <label for="slider" id="passwordLengthValue">Length</label>
       <br>
-      <input type="range" min="1" max="30" value="12" class="slider" id="passwordLength" onchange="updatePasswordLength()">
-      <span id="passwordLengthValue">12</span>
-      <label for="slider">length</label>
+      <input type="checkbox" class="specialCharacters" checked>
+      <label for="checkbox">!@#$%^&*</label>
       <br>
       <input type="checkbox" class="uppercase" checked>
       <label for="checkbox">A-Z</label>
@@ -45,14 +49,8 @@
       <input type="checkbox" class="numbers" checked>
       <label for="checkbox">0-9</label>
       <br>
-      <input type="checkbox" class="specialCharacters" checked>
-      <label for="checkbox">!@#$%^&*</label>
-      <br>
       <br>
       <input type="button" value="Generate Password" id="generatePasswordButton" onclick="generatePassword()">
-   
-    </ul>
-  </nav>
   </div>
 
   <div id="accountsDash">

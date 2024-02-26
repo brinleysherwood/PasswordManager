@@ -24,6 +24,8 @@ header {
     height: 150px;
 }
 
+/* Welcome Message + Sign Out */
+
 .navBar {
     overflow: hidden;
     background-color: #596869;
@@ -73,10 +75,28 @@ header {
     text-align: center;
 }
 
-ul {
-    padding: 0;
-    list-style-type: none;
+#copyButton {
+    width: 10%;
+    background-color: #E6EFE6; 
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
 }
+.specialCharacters {
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+.uppercase, .lowercase, .numbers {
+    margin-right: 55px;
+    margin-bottom: 8px;
+}
+
 
 #accountsDash {
     float: left;
@@ -85,6 +105,11 @@ ul {
     text-align: center;
     color: #333;
 }
+
+#addAccountButton, #clearButton {
+    margin-top: 8px;
+}
+
 
 /* Added CSS for the table elements */
 .resultsTable {
