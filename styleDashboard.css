@@ -61,7 +61,8 @@ header {
 }
 .drop:hover .dropContent {
     display: block;
-    background-color: #596869;
+    background-color: #E6EFE6;
+    color: black;
     text-align: center;
 }
 
@@ -74,27 +75,36 @@ header {
     padding: 20px;
     text-align: center;
 }
+#passwordContainer {
+    border-radius: 6px;
+    border-color: #596869;
+}
 
 #copyButton {
     width: 10%;
     background-color: #E6EFE6; 
-    border: none;
     color: black;
+    border: none;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 6px;
 }
+#copyButton:hover{
+    background-color: #596869;
+    color: white;
+}
+
 .specialCharacters {
     margin-top: 10px;
     margin-bottom: 8px;
+    accent-color: #596869;
 }
 .uppercase, .lowercase, .numbers {
     margin-right: 55px;
     margin-bottom: 8px;
+    accent-color: #596869;
 }
 
 
@@ -106,8 +116,52 @@ header {
     color: #333;
 }
 
-#addAccountButton, #clearButton {
+#addAccountButton, #clearButton, #generatePasswordButton, #editFormSubmitButton {
     margin-top: 8px;
+    border-radius: 6px;
+    border: none;
+    height: 30px;
+    background-color: white;
+}
+.editButton, .deleteButton {
+    height: 20px;
+    width: 60px;
+    border-radius: 6px;
+    border: none;
+    height: 30px;
+    background-color: white;
+}
+#editFormSubmitButton {
+    margin-top: 15px;
+    width: 200px;
+}
+#generatePasswordButton {
+    width: 200px;
+}
+#addAccountButton, #clearButton {
+    width: 150px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+#addAccountButton:hover, #clearButton:hover, #generatePasswordButton:hover, #editFormSubmitButton:hover, .editButton:hover, .deleteButton:hover {
+    background-color: #596869;
+    color: white;
+}
+#websiteInputId, #usernameInputId, #passwordInputId, #editWebsiteInput, #editUsernameInput, #editPasswordInput {
+    border-radius: 6px;
+    border: none;
+    height: 30px;
+}
+#websiteInputId, #usernameInputId, #passwordInputId {
+    margin-top: 10px;
+}
+#editWebsiteInput, #editUsernameInput, #editPasswordInput {
+    margin-right: 10px;
+    margin-top: 15px;
+}
+#editForm {
+    text-align: center;
+    padding-top: 20px;
 }
 
 
