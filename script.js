@@ -203,6 +203,38 @@ function register() {
   alert(`Registration Details:\n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPassword: ${password}`);
 }
 
+//*Nathan Leigh, password requirements*//
+function validateForm() {
+  var password = document.getElementById("newPassword").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var uppercaseRegex = /[A-Z]/;
+  var lowercaseRegex = /[a-z]/;
+  var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
+    document.getElementById("newPassword").value = '';
+    document.getElementById("confirmPassword").value = '';
+    return false;
+  }
+
+  if (password.length < 8) {
+    alert("Password must be at least 8 characters long.");
+    document.getElementById("newPassword").value = '';
+    document.getElementById("confirmPassword").value = '';
+    return false;
+  }
+
+  if (!uppercaseRegex.test(password) || !lowercaseRegex.test(password) || !specialCharRegex.test(password)) {
+    alert("Password must contain at least one uppercase letter, one lowercase letter, and one special character.");
+    document.getElementById("newPassword").value = '';
+    document.getElementById("confirmPassword").value = '';
+    return false;
+  }
+
+  return true;
+}
+
 // verify user information for login
 function login() {
   event.preventDefault();

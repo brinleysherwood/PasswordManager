@@ -11,7 +11,7 @@
 <body>
 
   <div class="container">
-    <form id="registerForm" action="/newuser" method="POST">
+    <form id="registerForm" action="/newuser" method="POST" onsubmit="return validateForm()">
       <h2>Create Account</h2>
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="firstName" required>
@@ -34,7 +34,7 @@
   </div>
 
   <script>
-    // Allows user to hit enter to login.
+    // Allows user to hit enter to create account.
     document.addEventListener("keyup", function(event) {
       event.preventDefault();
       if (event.keyCode === 13) {
