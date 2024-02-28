@@ -1,3 +1,15 @@
+h1.titleLogin {
+  text-align: center;
+  margin-bottom: 40px; /* Adjust margin as needed */
+  margin-top: 300px; /* Add margin to push h1 to the top */
+}
+
+h1.titleCreateAccount {
+  text-align: center;
+  margin-bottom: 40px; /* Adjust margin as needed */
+  margin-top: 200px; /* Add margin to push h1 to the top */
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
