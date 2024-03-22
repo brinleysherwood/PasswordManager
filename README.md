@@ -26,4 +26,6 @@ MySQL is used in the server.js file to send data to the tables in the database
 fs is used to create a directory to transfer the files for resumes to a directory location.
 
 # Command to run the program:
+```
 node server.js
+```
