@@ -6,3 +6,9 @@ Password management program that stores and generates passwords
 ```
 npm install node
 ```
+```
+npm install node
+```
+```
+node server.js
+```
